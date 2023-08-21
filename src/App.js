@@ -1,4 +1,5 @@
-import ThreeScene from "./threejs/threeScene";
+import ThreeScene from "./threejs/Home3D";
+
 import './threejs/canvasStyling.css';
 
 function App() {

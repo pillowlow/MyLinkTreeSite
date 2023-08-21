@@ -21,7 +21,8 @@ class Reflector extends Mesh {
 
 		const scope = this;
 
-		const color = ( options.color !== undefined ) ? new Color( options.color ) : new Color( 0x7F7F7F );
+		const reflectStrength = options.reflectStrength || 0.8;
+		const color = ( options.color !== undefined ) ? new Color( options.color ) : new Color( 0x000000 );
 		const textureWidth = options.textureWidth || 512;
 		const textureHeight = options.textureHeight || 512;
 		const clipBias = options.clipBias || 0;
@@ -56,6 +57,7 @@ class Reflector extends Mesh {
 		material.uniforms[ 'tDiffuse' ].value = renderTarget.texture;
 		material.uniforms[ 'color' ].value = color;
 		material.uniforms[ 'textureMatrix' ].value = textureMatrix;
+		material.uniforms[ 'reflectStrength' ].value= reflectStrength;
 
 		this.material = material;
 
@@ -206,6 +208,9 @@ Reflector.ReflectorShader = {
 
 		'textureMatrix': {
 			value: null
+		},
+		'reflectStrength':{
+			value: 0
 		}
 
 	},
@@ -230,30 +235,22 @@ Reflector.ReflectorShader = {
 	fragmentShader: /* glsl */`
 		uniform vec3 color;
 		uniform sampler2D tDiffuse;
+		uniform float reflectStrength;  // 用於調整混合強度的uniform
 		varying vec4 vUv;
-
+		
 		#include <logdepthbuf_pars_fragment>
-
-		float blendOverlay( float base, float blend ) {
-
-			return( base < 0.5 ? ( 2.0 * base * blend ) : ( 1.0 - 2.0 * ( 1.0 - base ) * ( 1.0 - blend ) ) );
-
-		}
-
-		vec3 blendOverlay( vec3 base, vec3 blend ) {
-
-			return vec3( blendOverlay( base.r, blend.r ), blendOverlay( base.g, blend.g ), blendOverlay( base.b, blend.b ) );
-
-		}
-
+		
 		void main() {
-
+		
 			#include <logdepthbuf_fragment>
-
+		
 			vec4 base = texture2DProj( tDiffuse, vUv );
-			gl_FragColor = vec4( blendOverlay( base.rgb, color ), 1.0 );
-
-		}`
+			vec3 baseColor = base.rgb * (1.0 - reflectStrength); // 調整基礎貼圖的顏色
+			vec3 reflectedColor = color * reflectStrength;  // 調整反射顏色的強度
+			gl_FragColor = vec4( baseColor + reflectedColor, 1.0 );  // 使用加法混合
+		
+		}
+	`
 };
 
 export { Reflector };
