@@ -1,0 +1,11 @@
+.button-regular {
+    /* 普通狀態的 CSS 樣式 */
+    color: white;
+    background-color: blue;
+  }
+  
+  .button-clicked {
+    /* 被觸發狀態的 CSS 樣式 */
+    color: black;
+    background-color: green;
+  }

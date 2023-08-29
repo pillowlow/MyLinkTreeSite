@@ -1,0 +1,101 @@
+
+.homeContainer{
+    z-index: 1;
+    position:fixed;
+}
+.upperContainer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1; /* 設定疊放順序 */
+}
+
+
+.title {
+    color: white;
+    font-size: 3rem;
+    
+  }
+  
+.description {
+    color: white;
+    font-size: 1.5rem;
+   
+  }
+  
+  /* 隨螢幕大小調整 */
+  @media (max-width: 768px) {
+    .title {
+      font-size: 2rem;
+    }
+    .description {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size: 1.5rem;
+    }
+    .description {
+      font-size: 0.8rem;
+    }
+  }
+
+  .marquee {
+    width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    border: 1px solid #ccc;
+    
+  }
+  .marquee span {
+    display: inline-block;
+    color: white;
+    font-size: 1.5rem;
+    animation: marquee 10s linear infinite;
+    padding-left: 100%;
+  }
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+
+
+  .vert-marquee {
+    height: 300px;
+    width: 50px;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    border: 1px solid #ccc;
+    
+  }
+  .vert-marquee span {
+    display: inline-block;
+    color: white;
+    font-size: 1.5rem;
+    animation: vert-marquee 10s linear infinite;
+    writing-mode: vertical-rl;
+  }
+  @keyframes vert-marquee {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+
+  

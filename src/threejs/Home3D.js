@@ -4,6 +4,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import {Water} from "./libs/Water2";
 import { Reflector } from "./libs/Reflector";
 import { SlimeBubble } from "./libs/SilmeBubble";
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+
 
 // import vertex from "./shaders/vertexShader";
 // import fragment from "./shaders/fragmentShader";
@@ -34,52 +36,57 @@ class ThreeScene extends Component{
 
     //This is a function to handle resizing of window
     handleWindowResize = ()=>{
-        // console.log("hello")
-        
-        //update the camera
-        this.camera.aspect = window.innerWidth/window.innerHeight
-        this.camera.updateProjectionMatrix()
-        // console.log(this.camera.aspect)
+        // 計算窄的邊
+    const size = Math.min(window.innerWidth, window.innerHeight);
 
-        //update the renderer
-        this.renderer.setSize(window.innerWidth,window.innerHeight)
-        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-        this.renderer.render(this.scene,this.camera)
-        // this.canvas = this.renderer.domElement
+    // 更新相機的長寬比和投影矩陣
+    this.camera.aspect = 1; // 因為我們想要正方形
+    this.camera.updateProjectionMatrix();
+
+    // 調整渲染器的尺寸
+    this.renderer.setSize(size, size);
+
+    // 設定 canvas (或 .webgl) 的尺寸，確保它是正方形且居中
+    this.canvas.style.width = `${size}px`;
+    this.canvas.style.height = `${size}px`;
+
+    // 更新渲染
+    this.renderer.render(this.scene, this.camera);
 
     }
 
-    // This is a function to display in fullscreen
+    /*
+    // This is a function to display in fullscreen 
     handleFullscreen = () => {
     
-    const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement
-    
-        if(!fullscreenElement)
-        {
-            if(this.canvas.requestFullscreen)
+        const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement
+        
+            if(!fullscreenElement)
             {
-                try{this.canvas.requestFullscreen()}
-               catch(err){
-                   console.log(err)
-               }
+                if(this.canvas.requestFullscreen)
+                {
+                    try{this.canvas.requestFullscreen()}
+                   catch(err){
+                       console.log(err)
+                   }
+                }
+                else if(this.canvas.webkitRequestFullscreen)
+                {
+                    this.canvas.webkitRequestFullscreen()
+                }
             }
-            else if(this.canvas.webkitRequestFullscreen)
+            else
             {
-                this.canvas.webkitRequestFullscreen()
+                if(document.exitFullscreen)
+                {
+                    document.exitFullscreen()
+                }
+                else if(document.webkitExitFullscreen)
+                {
+                    document.webkitExitFullscreen()
+                }
             }
-        }
-        else
-        {
-            if(document.exitFullscreen)
-            {
-                document.exitFullscreen()
-            }
-            else if(document.webkitExitFullscreen)
-            {
-                document.webkitExitFullscreen()
-            }
-        }
-    }
+        }*/
 
     animation = ()=>{
         
@@ -93,6 +100,15 @@ class ThreeScene extends Component{
         // Render
         this.renderer.setClearColor(0x000000);
         this.renderer.render(this.scene, this.camera);
+        // turn spin
+        try{
+            //console.log(this.mesh.rotation.y);
+            this.mesh.rotation.y +=0.3;
+        }catch{
+
+        }        
+
+
 
         requestAnimationFrame(this.animation);
     }
@@ -131,8 +147,8 @@ class ThreeScene extends Component{
 
         //camera
         this.camera = new THREE.PerspectiveCamera(45,this.size.width/this.size.height,0.1,100)
-        this.camera.position.set( 13.730793217867078, 24.107525807579112, 25.88136484265634 )
-        let euler = new THREE.Euler( 0.628536792447481, -0.3888148966690491, -0.30236577675077064, 'XZY' ); // 'YXZ' 是旋转顺序
+        this.camera.position.set( 11.730793217867078, 22.107525807579112, 19.88136484265634 )
+        let euler = new THREE.Euler( 0.628536792447481, -0.3888148966690491, -0.10236577675077064, 'XZY' ); // 'YXZ' 是旋转顺序
         this.camera.rotation.copy( euler );
         
         
@@ -141,6 +157,13 @@ class ThreeScene extends Component{
         // Controls
         this.controls = new OrbitControls(this.camera, this.canvas)
         this.controls.enableDamping = true;
+        // control limitation
+        this.controls.minAzimuthAngle = - Math.PI / 4; 
+        this.controls.maxAzimuthAngle = Math.PI / 4;   
+        this.controls.minPolarAngle = Math.PI / 8;     
+        this.controls.maxPolarAngle = Math.PI / 4;
+        this.controls.minDistance = 5;
+        this.controls.maxDistance = 50;     
 
         // clock
 
@@ -148,27 +171,32 @@ class ThreeScene extends Component{
 
 
         // test bubble
-        
-       
+        /*
         const bubbleGeometry = new THREE.SphereGeometry(3,128, 128 );
-        
-            
         let slimeBubble = new SlimeBubble(bubbleGeometry,{emmi_color: 0xff7f50});
-       
-        
-        
         this.scene.add(slimeBubble );
+        slimeBubble.position.y = 4;*/
+       
+        // fbx
         
-       
-        slimeBubble.position.y = 4;
-       
-
+        const loader = new FBXLoader();
+        const loadpath = require('./assets/spin.fbx');
+        loader.load(loadpath, (fbx) => {
+            
+            this.mesh = fbx;
+            this.mesh.scale.set(5,5,5);
+            this.mesh.position.y=-1;
+            
+            this.scene.add(this.mesh);
+            }); 
+         
 
         // reflector
 
         const reflectPlane = new THREE.BoxGeometry(100,1,100);
         let reflector = new Reflector(reflectPlane,{color: 0x000000, reflectStrength: 0.6});
         this.scene.add(reflector);
+        reflector.position.y = -4;
         reflector.rotation.set(0,0,0);
 
         
@@ -180,13 +208,13 @@ class ThreeScene extends Component{
 
 
         
-        
+        /*
         //Add Ambient light
         const light = new THREE.AmbientLight(0xcccccc,0.4)
-        this.scene.add(light)
+        this.scene.add(light)*/
 
         // Add directional Light
-        const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.6 );
+        const directionalLight = new THREE.DirectionalLight( 0xffe4c4, 0.45 );
 		directionalLight.position.set( - 1, 1, 1 );
         this.scene.add( directionalLight );    
 
