@@ -4,7 +4,7 @@ import LinkContainer from '../Components/container/linkcontrainer';
 import {linkList} from '../languages/linkdatas';
 
 const LinkPage = () =>{
-    console.log("render linkpage");
+    
     return(
         < LinkContainer links={linkList}/>
     );

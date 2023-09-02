@@ -1,10 +1,10 @@
 import React,{Component} from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import {Water} from "./libs/Water2";
 import { Reflector } from "./libs/Reflector";
-import { SlimeBubble } from "./libs/SilmeBubble";
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+import { colorPallette } from "../languages/colorPallette";
+
 
 
 // import vertex from "./shaders/vertexShader";
@@ -21,19 +21,12 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 //Initialise GUI
 // const gui = new dat.GUI();
 
-const params = {
-    color: '#ffffff',
-    scale: 4,
-    flowX: 1,
-    flowY: 1
-};
 
 
 class ThreeScene extends Component{
     
-  
-
-
+    
+    
     //This is a function to handle resizing of window
     handleWindowResize = ()=>{
         // 計算窄的邊
@@ -42,13 +35,14 @@ class ThreeScene extends Component{
     // 更新相機的長寬比和投影矩陣
     this.camera.aspect = 1; // 因為我們想要正方形
     this.camera.updateProjectionMatrix();
-
+    
+    const uniformsize = size*0.8;
     // 調整渲染器的尺寸
-    this.renderer.setSize(size, size);
+    this.renderer.setSize(uniformsize, uniformsize);
 
     // 設定 canvas (或 .webgl) 的尺寸，確保它是正方形且居中
-    this.canvas.style.width = `${size}px`;
-    this.canvas.style.height = `${size}px`;
+    this.canvas.style.width = `${uniformsize}px`;
+    this.canvas.style.height = `${uniformsize}px`;
 
     // 更新渲染
     this.renderer.render(this.scene, this.camera);
@@ -107,11 +101,35 @@ class ThreeScene extends Component{
         }catch{
 
         }        
-
+        
 
 
         requestAnimationFrame(this.animation);
     }
+    // listen
+    componentDidUpdate(prevProps) {
+        // 检查是否 currentPage 属性有变化
+        if (this.props.currentPage !== prevProps.currentPage) {
+          //console.log(`currentPage changed from ${prevProps.currentPage} to ${this.props.currentPage}`);
+          
+          // 根据新的 currentPage 值执行逻辑
+          switch(this.props.currentPage) {
+            case 'Homepage':
+              this.SetColor('red');
+              break;
+            case 'Linkpage':
+              this.SetColor('blue');
+              break;
+            case 'Projectpage':
+              this.SetColor('yellow');
+              break;
+            default:
+              break;
+          }
+        }
+      }
+
+
 
     //Load the entire scene
     componentDidMount=()=>{
@@ -120,7 +138,12 @@ class ThreeScene extends Component{
             width:window.innerWidth,
             height:window.innerHeight
         }
+
+        //setcolorout
+        console.log("ThreeScene componentDidMount");
+        // 傳遞 SetColor 方法給父組件
        
+
         //scene
         this.scene = new THREE.Scene()
 
@@ -177,18 +200,102 @@ class ThreeScene extends Component{
         this.scene.add(slimeBubble );
         slimeBubble.position.y = 4;*/
        
-        // fbx
         
         const loader = new FBXLoader();
         const loadpath = require('./assets/spin.fbx');
+        // 當 FBXLoader 完成加載之後
         loader.load(loadpath, (fbx) => {
-            
             this.mesh = fbx;
             this.mesh.scale.set(5,5,5);
-            this.mesh.position.y=-1;
+            this.mesh.position.y = -1;
             
+            // 初始化保存材質的變數
+            this.redMaterials = [];
+            this.blueMaterials = [];
+            this.yellowMaterials = [];
+            
+            // 遍歷所有子對象
+            this.mesh.traverse((child) => {
+            if (child.isMesh) {
+                // 遍歷這個 mesh 的所有材質
+                const materials = Array.isArray(child.material) ? child.material : [child.material];
+                materials.forEach((material) => {
+                if (material.name === 'red') {
+                    this.redMaterials.push(material);
+                } else if (material.name === 'blue') {
+                    this.blueMaterials.push(material);
+                } else if (material.name === 'yellow') {
+                    this.yellowMaterials.push(material);
+                }
+                });
+            }
+            });
+        
             this.scene.add(this.mesh);
-            }); 
+        });
+        
+        // set current page
+        const { setCurrentPage } = this.props;
+        
+        
+       
+
+
+
+        // raycast
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        const onClick = (event) => {
+            
+            event.preventDefault();
+          
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+          
+            raycaster.setFromCamera(mouse, this.camera); // 注意 this.camera
+          
+            // 注意这里使用了 this.mesh
+            const intersects = raycaster.intersectObjects([this.mesh]);
+          
+            if (intersects.length > 0) {
+              
+
+              const materialIndex = intersects[0].face.materialIndex;
+              const material = intersects[0].object.material[materialIndex];
+              const materialName = material.name;
+              //console.log("Clicked material:", materialName);
+          
+              // 使用从 props 获取的 setCurrentPage 方法
+              switch(materialName){
+                case 'red':
+                    
+                    setCurrentPage('Homepage');
+                    this.SetColor('red');
+
+                    break;
+                case 'blue':
+                    
+                    setCurrentPage('Linkpage');
+                    this.SetColor('blue');
+
+
+                    break;
+                case 'yellow':
+                    
+                    setCurrentPage('Projectpage');
+                    this.SetColor('yellow');
+
+                    break;
+                default:
+                        
+                    break;  
+              }
+             
+             
+
+
+            }
+          };
          
 
         // reflector
@@ -226,13 +333,106 @@ class ThreeScene extends Component{
         // Add event listener for Fullscreen
         window.addEventListener('dblclick', this.handleFullscreen)
 
+        window.addEventListener('click', onClick);
+
+
 
         this.mount.appendChild(this.renderer.domElement)
 
         this.animation()
 
     }
-    
+    SetColor = (color) => {
+        //console.log("setcolor is invoked "+ color);
+        switch(color){
+            case 'red':
+                
+                this.redMaterials.forEach((material) => {
+                    
+                    material.emissiveIntensity = 2.0;
+                    
+                    const materialColor = colorPallette.red.red;
+
+                    material.emissive.set(materialColor); 
+                  });
+                this.blueMaterials.forEach((material) => {
+                    
+                    material.emissiveIntensity = 0.8; 
+                    
+                    const materialColor = colorPallette.red.blue;
+
+                    material.emissive.set(materialColor); 
+                  });
+                this.yellowMaterials.forEach((material) => {
+                    
+                    material.emissiveIntensity = 0.8;
+                    
+                    const materialColor = colorPallette.red.yellow;
+  
+                    material.emissive.set(materialColor);
+                  });
+
+                break;
+            case 'blue':
+                
+
+                this.redMaterials.forEach((material) => {
+                    
+                    material.emissiveIntensity = 0.8;
+                    
+                    const materialColor = colorPallette.blue.red;
+
+                    material.emissive.set(materialColor); 
+                  });
+                this.blueMaterials.forEach((material) => {
+                    
+                    material.emissiveIntensity = 2.0; 
+                    
+                    const materialColor = colorPallette.blue.blue;
+
+                    material.emissive.set(materialColor); 
+                  });
+                this.yellowMaterials.forEach((material) => {
+                    
+                    material.emissiveIntensity = 0.8; 
+                    
+                    const materialColor = colorPallette.blue.yellow;
+
+                    material.emissive.set(materialColor);  
+                  });
+
+
+                break;
+            case 'yellow':
+                
+
+                this.redMaterials.forEach((material) => {
+                    
+                    material.emissiveIntensity = 0.8;
+                    
+                    const materialColor = colorPallette.yellow.red;
+                    material.emissive.set(materialColor); 
+                  });
+                this.blueMaterials.forEach((material) => {
+                    
+                    material.emissiveIntensity = 0.8;
+                    
+                    const materialColor = colorPallette.yellow.blue;
+                    material.emissive.set(materialColor); 
+                  });
+                this.yellowMaterials.forEach((material) => {
+                    
+                    material.emissiveIntensity = 2.0;
+                    const materialColor = colorPallette.yellow.yellow;
+                    material.emissive.set(materialColor); 
+                  });
+
+                break;
+            default:
+                    
+                break;  
+          }
+    }
     render(){
         return(
             <div ref={

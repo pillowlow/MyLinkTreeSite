@@ -3,7 +3,7 @@ import './PageContents.css';
 
 
 const UpperPage = ({ title, description, imageUrl }) => {
-    console.log("HomePage is rendering"); //
+    
   return (
     <div className="upperContainer">
       <h1 className="title">{title}</h1>
