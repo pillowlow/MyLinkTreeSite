@@ -1,14 +1,23 @@
 // LinkButtonContainer.js
 import React from 'react';
 import LinkButton from '../button/linkbutton';
+import './linkcontainer.css'
+
 
 const LinkButtonContainer = ({ links }) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      {links.map((link, index) => (
-        <LinkButton key={index} {...link} />
-      ))}
+    <div className="Fixer">
+        <div className="FixerInner">
+            <div className="linkContainer">
+            
+            {links.map((link, index) => (
+                <LinkButton key={index} {...link} />
+            ))}
+            </div>
+        </div>
+
     </div>
+    
   );
 };
 

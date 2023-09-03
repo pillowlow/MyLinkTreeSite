@@ -1,11 +1,16 @@
 .button-regular {
-    /* 普通狀態的 CSS 樣式 */
-    color: white;
-    background-color: blue;
-  }
+  /* 普通狀態的 CSS 樣式 */
   
-  .button-clicked {
-    /* 被觸發狀態的 CSS 樣式 */
-    color: black;
-    background-color: green;
-  }
+  color: white;
+  box-shadow: none;  /* 移除立体效果 */
+  flex-grow: 1;
+  transition: opacity 0.3s ease;  /* 添加過渡效果 */
+  opacity: 1;  /* 默认透明度 */
+  position: relative;
+  z-index: 1;
+}
+
+.button-regular:active {
+  /* 被觸發狀態的 CSS 樣式 */
+  opacity: 0.5;  /* 点击时的透明度 */
+}

@@ -1,0 +1,19 @@
+.linkContainer{
+   
+    pointer-events: auto;
+}
+.Fixer{
+    z-index: 1;
+    position:absolute;
+    pointer-events: none;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    
+}
+.FixerInner{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}

@@ -13,6 +13,8 @@
   }
 }
 
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -22,6 +24,13 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+.header {
+  display: flex;  /* 使用 Flexbox 布局 */
+  justify-content: space-between;  /* 子元素平均分布 */
+  width: 70%;
+  margin: 0 auto;
+  background-color: transparent;
 }
 
 .App-link {
@@ -43,8 +52,23 @@ body, html {
   width: 100%;
   height: 100%;
   background-color: black;
+  overflow-y: auto;
 }
 
+.pageContainer {
+  position: relative;  /* 设置为 relative */
+  width: 100%;
+  height: 100%;
+  min-height: 50vh;
+  pointer-events: none;
+}
+.pageContainerDown {
+  position: relative;  /* 设置为 relative */
+  width: 100%;
+  height: 100%;
+  min-height: 50vh;
+  pointer-events: auto;
+}
 
 .overlay-text {
   position: absolute;
@@ -54,32 +78,53 @@ body, html {
   z-index: 1;
 }
 
-.title {
-  color: white;
-  font-size: 3rem;
+.lan-button{
+  background-color: rgb(58, 58, 58);
+  color: rgb(228, 228, 228);
 }
 
-.description {
-  color: white;
-  font-size: 1.5rem;
+.container-fluid {
+  height: 90vh; 
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  
 }
+
+/* 使 row 盡可能填滿高度 */
+.container-fluid .row {
+  flex: 1;  /* 允許 row 空間自動增長 */
+  min-height: 0;  /* 確保 flexbox 子元素能夠縮小 */
+  width: 100%;  /* 確保 row 占滿全部寬度 */
+  max-height: 100%;
+  display: flex;
+  position: relative;
+
+}
+
+/* 使 col 盡可能填滿高度 */
+.container-fluid .row .col-md-6 {
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;  /* 如果你的列中有多個元素，這會使它們垂直排列 */
+  position: relative;
+  
+}
+
+
+
+
 
 /* 隨螢幕大小調整 */
 @media (max-width: 768px) {
-  .title {
-    font-size: 2rem;
-  }
-  .description {
-    font-size: 1rem;
-  }
+  .container-fluid{
+  height: 90vh;
+ }
 }
 
 @media (max-width: 480px) {
-  .title {
-    font-size: 1.5rem;
-  }
-  .description {
-    font-size: 0.8rem;
+  .container-fluid{
+    height: 70vh;
   }
 }
  

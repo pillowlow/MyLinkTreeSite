@@ -1,17 +1,20 @@
 export const linkList = [
     {
-      iconUrl: '../../../icons/igIcon.png',
+      iconUrl: `${process.env.PUBLIC_URL}/icons/igIcon.png`,
       text: 'Link 1',
-      color: 'red',
+      color: '#00fff0',
+      url: 'https://line.me/ti/p/hVdejSDprr',
     },
     {
-      iconUrl: '../../../icons/igIcon.png',
+      iconUrl: `${process.env.PUBLIC_URL}/icons/igIcon.png`,
       text: 'Link 2',
-      color: 'green',
+      color: '#00fff0',
+      url: 'https://line.me/ti/p/hVdejSDprr',
     },
     {
-      iconUrl: '../../../icons/igIcon.png',
+      iconUrl: `${process.env.PUBLIC_URL}/icons/igIcon.png`,
       text: 'Link 3',
-      color: 'blue',
+      color: '#00fff0',
+      url: 'https://line.me/ti/p/hVdejSDprr',
     },
   ];

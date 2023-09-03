@@ -1,14 +1,33 @@
 import React from 'react';
+import './linkbutton.css';
+import '../../text.css';
 
-const LinkButton = ({ iconUrl, text, color }) => {
+const LinkButton = ({ iconUrl, text, color, url }) => {
+    const gradientBackground = `linear-gradient(to right, ${color}, white)`;
+
   return (
-    <div style={{ backgroundColor: color, padding: '10px', display: 'flex', alignItems: 'center',position:"relative",zIndex:"1" }}>
-      <img src={iconUrl} alt="icon" style={{ width: '20px', height: '20px' ,position:"relative",zIndex:"1"}} />
-      
-      <span style={{ marginLeft: '10px' ,color: "white",position:"relative",zIndex:"1"}}>{text}</span>
-      
-    </div>
+    <a href={url} target="_blank" rel="noopener noreferrer" style={{padding:" 10px"}}>
+      <div style={{ 
+        borderColor: color,
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        background: gradientBackground,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        
+        }} className="linkButton">
+        <div>
+        <img src={iconUrl} alt="icon"  style={{ padding:" 10px"}}/>
+        <span className="subTitle" style={{ color:'black', textShadow:'none'}}>{text} </span >
+
+        </div>
+        
+      </div>
+    </a>
   );
 };
 
 export default LinkButton;
+
+

@@ -1,0 +1,86 @@
+
+.button-text{
+   
+    font-size: 1rem;
+}
+
+.title {
+    color: white;
+    font-size: 3rem;
+    text-shadow: 2px 2px 2px black;
+    letter-spacing: 1rem;
+    
+  }
+.subTitle {
+    color: rgb(218, 218, 218);
+    font-size: 20px;
+    text-shadow: 2px 2px 2px black;
+    
+}
+  
+.description {
+    color: rgb(156, 156, 156);
+    font-size: 16px;
+    text-shadow: 2px 2px 2px black;
+    
+    
+    
+   
+  }
+  
+  /* 隨螢幕大小調整 */
+  @media (max-width: 768px) {
+    .title {
+      font-size: 3rem;
+      letter-spacing: 1rem;
+    }
+    .subTitle{
+        font-size: 20px;
+    }
+    .description {
+      font-size: 16px;
+      line-height: 1.5;
+      
+    }
+    .button-text{
+   
+        font-size: 32px;
+
+    }
+
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size:  1.5rem;
+      letter-spacing: 0.5rem;
+    }
+    .subTitle{
+        font-size: 16px;
+    }
+    .description {
+      font-size: 10px;
+      letter-spacing: 0rem;
+      line-height: 1.2;
+      
+    }
+
+    .button-text{
+   
+        font-size: 12px;
+    }
+
+  }
+
+  
+
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+
+
+  
+
+  
+  

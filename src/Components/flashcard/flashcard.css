@@ -1,0 +1,36 @@
+.card.my-card {
+    background-color: black; /* 卡片背景色改为黑色 */
+    border: none; /* 去除边框 */
+    width: 80%;
+    height: 60%;
+    top: 10%;
+    left: 10%;
+    position: absolute;
+  }
+  
+  .card-title.my-card-title {
+    color: white; /* 标题文字颜色改为白色 */
+  }
+  
+  .card-text.my-card-text {
+    color: white; /* 描述文字颜色改为白色 */
+  }
+  
+  .btn-primary.btn.my-button {
+    background-color: white; /* 按钮背景色改为白色 */
+    color: black ; /* 按钮文字颜色改为黑色 */
+    border-radius: 0 ; /* 去除圆角 */
+    width: 80%;
+    margin: auto;
+    box-shadow: none ; /* 去除立体效果 */
+    border: none ; /* 去除边框 */
+}
+
+.btn-primary.btn.my-button:focus, .btn-primary.btn.my-button:active, .btn-primary.btn.my-button.active {
+    background-color: black ; /* 按钮按下和聚焦时的背景色改为黑色 */
+    color: white ; /* 按钮按下和聚焦时的文字颜色改为白色 */
+    box-shadow: none ; /* 去除立体效果 */
+    border: none ; /* 去除边框 */
+}
+
+  

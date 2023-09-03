@@ -1,60 +1,112 @@
 
 .homeContainer{
     z-index: 1;
-    position:fixed;
+    position:absolute;
+    pointer-events: none;
+    top: 10%;
+      left: 10%;
+      width: 80%;
+      height: 80%;
+    
+    
 }
-.upperContainer{
+.homeContainerInner{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.leftContainer{
+  width: 100%;
+  position: relative; 
+}
+
+
+
+.pfpImageContainer {
+  width: 100%;
+  position: relative; /* 使絕對定位可用於子元素 */
+}
+
+.pfpImage {
+  max-width: 100%; /* 使圖片不超過容器寬度 */
+  border-radius: 50%; /* 使圖片成為圓形 */
+  border: 3px solid white; /* 加一個白色的邊框 */
+  object-fit: cover; /* 保持圖片比例，並且填充整個容器 */
+}
+
+.content {
+ top: 5%;
+ position: relative;
+}
+.contentDown {
+  top: 15%;
+  position: relative;
+ }
+.no-wrap {
+  flex-wrap: nowrap !important;
+}
+
+
+
+.upperContainer {
+  display: flex;
+  flex-direction: column; /* 垂直排列 */
+  align-items: start; /* 靠左对齐 */
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 10%;
+  left: 10%;
+  width: 90%;
+  height: 80%;
+  pointer-events: none;
+}
+.upperContainerInner {
+  position: relative;  /* 设置为 relative */
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.leftText{
+  position: relative;  
+  width: 60%;
+  height: 100%;
+  top:10%;
+  pointer-events: none;
+}
+
+
+.upperText{
+  display: flex;
+  justify-content: space-between; /* 一个元素靠左，另一个元素靠右 */
+  position: relative;
   pointer-events: none;
   z-index: 1; /* 設定疊放順序 */
+  width: 100%;
+  height: 80%;
+  margin: 0; /* 移除外边距 */
+  padding: 0; /* 移除内边距 */
+  pointer-events: none;
 }
-
-
-.title {
-    color: white;
-    font-size: 3rem;
-    
-  }
-  
-.description {
-    color: white;
-    font-size: 1.5rem;
-   
-  }
   
   /* 隨螢幕大小調整 */
-  @media (max-width: 768px) {
-    .title {
-      font-size: 2rem;
-    }
-    .description {
-      font-size: 1rem;
-    }
-  }
   
-  @media (max-width: 480px) {
-    .title {
-      font-size: 1.5rem;
-    }
-    .description {
-      font-size: 0.8rem;
-    }
-  }
 
   .marquee {
-    width: 300px;
+    
     overflow: hidden;
     white-space: nowrap;
-    position: relative;
-    border: 1px solid #ccc;
+    position: absolute;  /* 设置为 absolute */
+    
+    width: 90%;
+    color: white;
+    margin: 0;
+    padding: 0;
+    
     
   }
   .marquee span {
     display: inline-block;
-    color: white;
-    font-size: 1.5rem;
     animation: marquee 10s linear infinite;
     padding-left: 100%;
   }
@@ -67,35 +119,70 @@
     }
   }
 
-  .vertical-text {
-    writing-mode: vertical-rl;
-    text-orientation: upright;
-  }
-
-
+  
   .vert-marquee {
-    height: 300px;
-    width: 50px;
+    height: 100%;
+    min-width: 10% ;
     overflow: hidden;
     white-space: nowrap;
     position: relative;
-    border: 1px solid #ccc;
-    
+    color: white;
+    right: 0;
+    margin: 0; /* 移除外边距 */
+    padding: 0; /* 移除内边距 */
   }
   .vert-marquee span {
     display: inline-block;
-    color: white;
-    font-size: 1.5rem;
     animation: vert-marquee 10s linear infinite;
     writing-mode: vertical-rl;
+    padding-top: 100%;
   }
   @keyframes vert-marquee {
     0% {
-      transform: translateY(0);
-    }
-    100% {
       transform: translateY(-100%);
     }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .homeContainer{
+      top: 10%;
+      left: 10%;
+      width: 80%;
+      height: 80%;
+    }
+    .leftText{
+      width: 60%;
+      top:10%;
+    }
+    .leftContainer{
+      width: 100%;
+    }
+    
+  }
+  
+  @media (max-width: 480px) {
+    .homeContainer{
+      top: 0%;
+      left: 5%;
+      width: 100%;
+      height: 80%;
+    }
+    .leftText{
+      width: 80%;
+      top:5%;
+    }
+    .leftContainer{
+     
+      max-width: 20vw;
+    }
+    .no-wrap{
+      max-width: 90vw;
+    }
+    
+   
   }
 
   

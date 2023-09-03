@@ -1,17 +1,17 @@
 export const colorPallette = {
     red: {
-        red: 0xff021d,
-        blue: 0xd4008c,
-        yellow: 0xff9a02,
+        red: 0xff4754,
+        blue: 0xef5cfc,
+        yellow: 0xff8b02,
     },
     blue: {
-        red: 0x9002ff,
+        red: 0xef5cfc,
         blue: 0x00fff0,
-        yellow: 0x00ffb2,
+        yellow: 0x00ff1a,
     },
     yellow:{
-        red: 0xff6c02,
-        blue: 0x22f300,
+        red: 0xff8b02,
+        blue: 0x00ff1a,
         yellow: 0xffe500,
     }
     

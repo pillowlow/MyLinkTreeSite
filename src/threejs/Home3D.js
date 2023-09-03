@@ -4,6 +4,10 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Reflector } from "./libs/Reflector";
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { colorPallette } from "../languages/colorPallette";
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+
 
 
 
@@ -25,29 +29,38 @@ import { colorPallette } from "../languages/colorPallette";
 
 class ThreeScene extends Component{
     
-    
+   
     
     //This is a function to handle resizing of window
-    handleWindowResize = ()=>{
-        // 計算窄的邊
-    const size = Math.min(window.innerWidth, window.innerHeight);
-
-    // 更新相機的長寬比和投影矩陣
-    this.camera.aspect = 1; // 因為我們想要正方形
-    this.camera.updateProjectionMatrix();
-    
-    const uniformsize = size*0.8;
-    // 調整渲染器的尺寸
-    this.renderer.setSize(uniformsize, uniformsize);
-
-    // 設定 canvas (或 .webgl) 的尺寸，確保它是正方形且居中
-    this.canvas.style.width = `${uniformsize}px`;
-    this.canvas.style.height = `${uniformsize}px`;
-
-    // 更新渲染
-    this.renderer.render(this.scene, this.camera);
-
-    }
+    handleWindowResize = () => {
+        let newWidth, newHeight;
+      
+        // 如果是直式（高度 > 寬度）
+        if (window.innerHeight > window.innerWidth) {
+          newWidth = window.innerWidth;
+          newHeight = window.innerWidth; // 讓它成為正方形
+        } 
+        // 如果是橫式（寬度 > 高度）
+        else {
+          newWidth = window.innerWidth / 2;
+          newHeight = window.innerHeight; // 讓高度等於視窗高度
+        }
+      
+        // 更新相機的長寬比和投影矩陣
+        this.camera.aspect = newWidth / newHeight;
+        this.camera.updateProjectionMatrix();
+        
+        // 調整渲染器的尺寸
+        this.renderer.setSize(newWidth, newHeight);
+      
+        // 設定 canvas (或 .webgl) 的尺寸
+        this.canvas.style.width = `${newWidth}px`;
+        this.canvas.style.height = `${newHeight}px`;
+      
+        // 更新渲染
+        this.renderer.render(this.scene, this.camera);
+      }
+      
 
     /*
     // This is a function to display in fullscreen 
@@ -103,7 +116,7 @@ class ThreeScene extends Component{
         }        
         
 
-
+        this.composer.render(); 
         requestAnimationFrame(this.animation);
     }
     // listen
@@ -170,7 +183,7 @@ class ThreeScene extends Component{
 
         //camera
         this.camera = new THREE.PerspectiveCamera(45,this.size.width/this.size.height,0.1,100)
-        this.camera.position.set( 11.730793217867078, 22.107525807579112, 19.88136484265634 )
+        this.camera.position.set( 15.6, 28.6, 26.0 )
         let euler = new THREE.Euler( 0.628536792447481, -0.3888148966690491, -0.10236577675077064, 'XZY' ); // 'YXZ' 是旋转顺序
         this.camera.rotation.copy( euler );
         
@@ -188,9 +201,30 @@ class ThreeScene extends Component{
         this.controls.minDistance = 5;
         this.controls.maxDistance = 50;     
 
+        
+
         // clock
 
         const clock = new THREE.Clock();
+
+        // resize
+        this.handleWindowResize();
+
+
+        // bloom effect
+         // 初始化 EffectComposer
+         this.composer = new EffectComposer(this.renderer);
+         this.renderPass = new RenderPass(this.scene, this.camera);
+         this.composer.addPass(this.renderPass);
+ 
+         // 添加 UnrealBloomPass
+         this.bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+         this.bloomPass.threshold = 0.6;
+         this.bloomPass.strength = 1.5;
+         this.bloomPass.radius = 1;
+         this.composer.addPass(this.bloomPass);
+
+
 
 
         // test bubble
@@ -232,6 +266,7 @@ class ThreeScene extends Component{
             });
         
             this.scene.add(this.mesh);
+            this.SetColor('red');
         });
         
         // set current page
@@ -349,26 +384,26 @@ class ThreeScene extends Component{
                 
                 this.redMaterials.forEach((material) => {
                     
-                    material.emissiveIntensity = 2.0;
+                    material.emissiveIntensity = 1.5;
                     
                     const materialColor = colorPallette.red.red;
-
+                    material.color.set(materialColor);
                     material.emissive.set(materialColor); 
                   });
                 this.blueMaterials.forEach((material) => {
                     
-                    material.emissiveIntensity = 0.8; 
+                    material.emissiveIntensity = 0.6; 
                     
                     const materialColor = colorPallette.red.blue;
-
+                    material.color.set(materialColor);
                     material.emissive.set(materialColor); 
                   });
                 this.yellowMaterials.forEach((material) => {
                     
-                    material.emissiveIntensity = 0.8;
+                    material.emissiveIntensity = 0.6;
                     
                     const materialColor = colorPallette.red.yellow;
-  
+                    material.color.set(materialColor);
                     material.emissive.set(materialColor);
                   });
 
@@ -381,7 +416,7 @@ class ThreeScene extends Component{
                     material.emissiveIntensity = 0.8;
                     
                     const materialColor = colorPallette.blue.red;
-
+                    material.color.set(materialColor);
                     material.emissive.set(materialColor); 
                   });
                 this.blueMaterials.forEach((material) => {
@@ -389,7 +424,7 @@ class ThreeScene extends Component{
                     material.emissiveIntensity = 2.0; 
                     
                     const materialColor = colorPallette.blue.blue;
-
+                    material.color.set(materialColor);
                     material.emissive.set(materialColor); 
                   });
                 this.yellowMaterials.forEach((material) => {
@@ -397,7 +432,7 @@ class ThreeScene extends Component{
                     material.emissiveIntensity = 0.8; 
                     
                     const materialColor = colorPallette.blue.yellow;
-
+                    material.color.set(materialColor);
                     material.emissive.set(materialColor);  
                   });
 
@@ -408,9 +443,10 @@ class ThreeScene extends Component{
 
                 this.redMaterials.forEach((material) => {
                     
-                    material.emissiveIntensity = 0.8;
+                    material.emissiveIntensity = 0.6;
                     
                     const materialColor = colorPallette.yellow.red;
+                    material.color.set(materialColor);
                     material.emissive.set(materialColor); 
                   });
                 this.blueMaterials.forEach((material) => {
@@ -418,12 +454,14 @@ class ThreeScene extends Component{
                     material.emissiveIntensity = 0.8;
                     
                     const materialColor = colorPallette.yellow.blue;
+                    material.color.set(materialColor);
                     material.emissive.set(materialColor); 
                   });
                 this.yellowMaterials.forEach((material) => {
                     
-                    material.emissiveIntensity = 2.0;
+                    material.emissiveIntensity = 1.5;
                     const materialColor = colorPallette.yellow.yellow;
+                    material.color.set(materialColor);
                     material.emissive.set(materialColor); 
                   });
 

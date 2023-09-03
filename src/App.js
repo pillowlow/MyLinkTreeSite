@@ -9,7 +9,12 @@ import { languages } from './languages/language';
 import { SetColor } from './threejs/Home3D';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './threejs/canvasStyling.css';
-import './App.css'
+import './App.css';
+import './text.css';
+
+
+
+
 
 const LanguageContext = createContext();
 
@@ -37,36 +42,60 @@ const MainContent = () => {
   const [currentPage, setCurrentPage] = React.useState('Homepage');
   
   
+  useEffect(() => {
+    // 设置网页标题
+    document.title = "PillowWebsite";
+    
+    // 设置网页图标
+    /*
+    const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/x-icon';
+    link.rel = 'shortcut icon';
+    link.href = '路径/to/你的图标.ico';
+    document.getElementsByTagName('head')[0].appendChild(link);*/
+  }, []);
 
   //console.log(this.SetColor);
   return (
     <>
       <div className="header">
-      <ButtonComponent text={text.page1}  currentPage={currentPage} customColor="red" onClick={() => {setCurrentPage('Homepage'); }} />
-      <ButtonComponent text={text.page2}  currentPage={currentPage} customColor="yellow" onClick={() => {setCurrentPage('Linkpage'); }} />
-      <ButtonComponent text={text.page2}  currentPage={currentPage} customColor="blue" onClick={() => {setCurrentPage('Projectpage'); }} />
-        <button onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}>EN/中文</button>
+      <ButtonComponent text={text.homePage}  currentPage={currentPage} customColor="red" onClick={() => {setCurrentPage('Homepage'); }} />
+      <ButtonComponent text={text.linkPage}  currentPage={currentPage} customColor="blue" onClick={() => {setCurrentPage('Linkpage'); }} />
+      <ButtonComponent text={text.ProjectPage}  currentPage={currentPage} customColor="yellow" onClick={() => {setCurrentPage('Projectpage'); }} />
+      <button className="lan-button" onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}>EN/中文</button>
       </div>
+      
+
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-6 position-relative">
+          <div className="col-md-6 ">
           <ThreeScene setCurrentPage={setCurrentPage} currentPage={currentPage} className="webgl" />
-            <UpperContent title={text.title} description={text.description}/>
+          {currentPage === 'Homepage' && (
+                <UpperContent title={text.UpperHomeTitle} description={text.UpperHomeDescription1} description2={text.UpperHomeDescription2} marquee={text.marquee} vertMarquee={text.vertMarquee}/>
+          )}
+          {currentPage === 'Linkpage' && (
+                <UpperContent title={text.UpperLinkTitle} description={text.UpperLinkDescription1} description2={text.UpperLinkDescription2} marquee={text.marquee} vertMarquee={text.vertMarquee}/>
+          )}
+          {currentPage === 'Projectpage' && (
+                <UpperContent title={text.UpperHomeTitle} description={text.UpperHomeDescription1} description2={text.UpperHomeDescription2} marquee={text.marquee} vertMarquee={text.vertMarquee}/>
+          )}
+
+          
           </div>
           <div className="col-md-6">
-            <div className="page-container">
-              {currentPage === 'Homepage' && (
-                <HomePage title={text.title} description={text.description} imageUrl="./photos/mypfp.jpg" />
-              )};
-              {currentPage === 'Linkpage' && (
-                <div><LinkPage/></div>
-                
-              )}
-               {currentPage === 'Projectpage' && (
-                <div><ProjectPage/></div>
-              )}
-              
-            </div>
+              <div className="pageContainerDown">
+                {currentPage === 'Homepage' && (
+                  <HomePage title={text.DownHomeTittle} description={text.DownHomeDescription1} description2={text.DownHomeDescription2} imageUrl={`${process.env.PUBLIC_URL}/photos/mypfp.jpg`} />
+                )}
+                {currentPage === 'Linkpage' && (
+                  <LinkPage/>
+                  
+                )}
+                {currentPage === 'Projectpage' && (
+                  <div><ProjectPage useLanguage ={language }/></div>
+                )}
+              </div>
+            
           </div>
         </div>
       </div>
@@ -87,3 +116,6 @@ const App = () => {
 
 
 export default App;
+/*<a href={"https://www.google.com"} target="_blank" rel="noopener noreferrer">
+{"Go to Google" }
+</a>*/
