@@ -6,7 +6,7 @@ const LinkButton = ({ iconUrl, text, color, url }) => {
     const gradientBackground = `linear-gradient(to right, ${color}, white)`;
 
   return (
-    <a href={url} target="_blank" rel="noopener noreferrer" style={{padding:" 10px"}}>
+    <a href={url} target="_blank" rel="noopener noreferrer" onClick={() => window.open(url, '_blank')} style={{padding:" 10px"}}>
       <div style={{ 
         borderColor: color,
         borderWidth: '1px',
