@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/MyLinkTreeSite/static/css/main.c6905bed.css",
+    "main.js": "/MyLinkTreeSite/static/js/main.6b846bf9.js",
+    "static/js/787.732ecc16.chunk.js": "/MyLinkTreeSite/static/js/787.732ecc16.chunk.js",
+    "static/media/spin.fbx": "/MyLinkTreeSite/static/media/spin.3ef32b99a1eac0ea0e87.fbx",
+    "index.html": "/MyLinkTreeSite/index.html",
+    "main.c6905bed.css.map": "/MyLinkTreeSite/static/css/main.c6905bed.css.map",
+    "main.6b846bf9.js.map": "/MyLinkTreeSite/static/js/main.6b846bf9.js.map",
+    "787.732ecc16.chunk.js.map": "/MyLinkTreeSite/static/js/787.732ecc16.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c6905bed.css",
+    "static/js/main.6b846bf9.js"
+  ]
+}
