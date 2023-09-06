@@ -31,10 +31,10 @@ export const languages = {
       vertMarquee:"Magic comes from imagination; what cannot be imagined, cannot be achieved",
       DownHomeTittle: "About Me",
       DownHomeDescription1: "「Magic comes from imagination; what cannot be imagined, cannot be achieved」",
-      DownHomeDescription2: "As a cross-disciplinary engineer and artist, I'm deeply interested in VFX, XR, and game design. Proficient in Unity and Unreal, I have participated in diverse projects.\nI'm a senior at National Tsing Hua University and open for collaborations. Connect with me through my LinkPage's social media.",
+      DownHomeDescription2: "As a cross-disciplinary engineer and artist, I'm deeply interested in VFX, XR, and game design. Im familiar in MultiMedia developing tools such as Unity and blender3D, owing to the experiences of participating in diverse projects.\nI'm a senior at National Tsing Hua University and open for collaborations. Please onnect with me through the social medias in LinkPage.",
       //LinkPage
       UpperLinkTitle: "LinkTree",
-      UpperLinkDescription1: "Below are the links to my social media accounts where you can contact me (I prefer Line, FB, IG, email). My main portfolio for 3D and photography work is primarily hosted on Instagram, feel free to check it out."
+      UpperLinkDescription1: "Below are the links to my social media accounts where you can contact me (I prefer Line, FB, IG, email). My main portfolio for 3D and photography work is primarily hosted on Instagram, welocme to go and check it out!"
       ,
       UpperLinkDescription2: "",
 
