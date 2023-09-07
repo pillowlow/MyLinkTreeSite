@@ -31,8 +31,8 @@
   /* 隨螢幕大小調整 */
   @media (max-width: 768px) {
     .title {
-      font-size: 3rem;
-      letter-spacing: 1rem;
+      font-size: 48px;
+      letter-spacing: 16px;
     }
     .subTitle{
         font-size: 20px;
@@ -52,14 +52,14 @@
   
   @media (max-width: 480px) {
     .title {
-      font-size:  1.5rem;
-      letter-spacing: 0.5rem;
+      font-size:  24px;
+      letter-spacing: 14px;
     }
     .subTitle{
         font-size: 16px;
     }
     .description {
-      font-size: 10px;
+      font-size: 12px;
       letter-spacing: 0rem;
       line-height: 1.2;
       

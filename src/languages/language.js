@@ -16,6 +16,11 @@ export const languages = {
       UpperLinkTitle: "各式帳號連結",
       UpperLinkDescription1: "這邊下面的是我各社群帳號的連結，可以透過這些帳號聯繫我(偏好line,fb,ig,email)。目前我的3D和攝影相關作品集主要存放在instagram上，可以前往參觀",
       UpperLinkDescription2: "",
+      //ProjectPage
+      UpperProjectTitle: "我的專案",
+      UpperProjectDescription1: "作為一名跨領域的工作者，我擅長與來自不同背景和擁有不同風格的團隊合作開發各種專案，並且在團隊中扮演不同的角色。除此之外，我也熟稔團隊開發與思考的過程，因此對於創新的專案一向相當有興趣。以下是一些我曾經參與過的專案展示，詳情可以點擊卡片下方的按鈕前往相關的線上資料。",
+      UpperProjectDescription2: "",
+
       
     },
     en: {
@@ -25,7 +30,7 @@ export const languages = {
       ProjectPage: "Projects",
       // Home
       UpperHomeTitle: "Sense X Fantasy X Engineering",
-      UpperHomeDescription1: "Welcome to my personal site ! I'm both an engineer and artist focused on interdisciplinary challenges.You can find information here including my resume, social media links, portfolio, and more.",
+      UpperHomeDescription1: "Welcome to my personal website ! I'm both an engineer and artist focused on interdisciplinary challenges.You can find information here including my resume, social media links, portfolio, and more.",
       UpperHomeDescription2: "Wilson,PO YU Chen (Pillow)",
       marquee:"You're free to click buttons to change the colors of the 3D elements, drag your mouse to rotate the view, or click on 3D objects. If you click the correct color, you'll be taken to another page! ",
       vertMarquee:"Magic comes from imagination; what cannot be imagined, cannot be achieved",
@@ -37,6 +42,12 @@ export const languages = {
       UpperLinkDescription1: "Below are the links to my social media accounts where you can contact me (I prefer Line, FB, IG, email). My main portfolio for 3D and photography work is primarily hosted on Instagram, welocme to go and check it out!"
       ,
       UpperLinkDescription2: "",
+      //ProjectPage
+      UpperProjectTitle: "My Projects",
+      UpperProjectDescription1: "As a cross-disciplinary worker, I excel at collaborating with teams of diverse backgrounds and styles. I've played various roles in teams and am well-versed in the team development process, making me particularly interested in innovative projects. Below are showcases of projects I've been involved in; for more details, click the button under each card to access related online information."
+      ,
+      UpperProjectDescription2: "",
+
 
     },
     // 添加更多語言

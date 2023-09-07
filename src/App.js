@@ -77,7 +77,7 @@ const MainContent = () => {
                 <UpperContent title={text.UpperLinkTitle} description={text.UpperLinkDescription1} description2={text.UpperLinkDescription2} marquee={text.marquee} vertMarquee={text.vertMarquee}/>
           )}
           {currentPage === 'Projectpage' && (
-                <UpperContent title={text.UpperHomeTitle} description={text.UpperHomeDescription1} description2={text.UpperHomeDescription2} marquee={text.marquee} vertMarquee={text.vertMarquee}/>
+                <UpperContent title={text.UpperProjectTitle} description={text.UpperProjectDescription1} description2={text.UpperProjectDescription2} marquee={text.marquee} vertMarquee={text.vertMarquee}/>
           )}
 
           
