@@ -12,6 +12,7 @@ const Flashcard = ({ image, title, description, link }) => {
     
     const [isClicked, setIsClicked] = useState(false);
     const handleClick = () => {
+        window.open(link , '_blank')
         setIsClicked(true);
         setTimeout(() => setIsClicked(false), 1000);  // 3秒后重置
       };
@@ -28,13 +29,13 @@ const Flashcard = ({ image, title, description, link }) => {
 
   return (
     <Card className="mb-3 my-card">
+      <Card.Title className="my-card-title">{title}</Card.Title>
       <Row className="g-0">
         <Col xs={5}>
           <Card.Img src={image} alt="Flashcard image" />
         </Col>
         <Col xs={7}>
-          <Card.Body>
-            <Card.Title className="my-card-title">{title}</Card.Title>
+          <Card.Body className = "my-body">
             <Card.Text className="description">{description}</Card.Text>
           </Card.Body>
         </Col>

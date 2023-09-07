@@ -7,6 +7,10 @@
     left: 10%;
     position: absolute;
   }
+  .my-body {
+    overflow-y: auto;
+   
+}
   
   .card-title.my-card-title {
     color: white; /* 标题文字颜色改为白色 */
@@ -31,6 +35,21 @@
     color: white ; /* 按钮按下和聚焦时的文字颜色改为白色 */
     box-shadow: none ; /* 去除立体效果 */
     border: none ; /* 去除边框 */
+}
+
+@media (max-width: 768px) {
+  .my-body {
+    overflow-y: auto;
+     max-height: 40vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .my-body {
+    overflow-y: auto;
+    max-height: 20vh;
+ }
+ 
 }
 
   
