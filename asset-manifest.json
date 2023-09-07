@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/MyLinkTreeSite/static/css/main.1aef2112.css",
-    "main.js": "/MyLinkTreeSite/static/js/main.d03525b4.js",
+    "main.css": "/MyLinkTreeSite/static/css/main.fb053669.css",
+    "main.js": "/MyLinkTreeSite/static/js/main.48c041c2.js",
     "static/js/787.732ecc16.chunk.js": "/MyLinkTreeSite/static/js/787.732ecc16.chunk.js",
     "static/media/spin.fbx": "/MyLinkTreeSite/static/media/spin.3ef32b99a1eac0ea0e87.fbx",
     "index.html": "/MyLinkTreeSite/index.html",
-    "main.1aef2112.css.map": "/MyLinkTreeSite/static/css/main.1aef2112.css.map",
-    "main.d03525b4.js.map": "/MyLinkTreeSite/static/js/main.d03525b4.js.map",
+    "main.fb053669.css.map": "/MyLinkTreeSite/static/css/main.fb053669.css.map",
+    "main.48c041c2.js.map": "/MyLinkTreeSite/static/js/main.48c041c2.js.map",
     "787.732ecc16.chunk.js.map": "/MyLinkTreeSite/static/js/787.732ecc16.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1aef2112.css",
-    "static/js/main.d03525b4.js"
+    "static/css/main.fb053669.css",
+    "static/js/main.48c041c2.js"
   ]
 }
